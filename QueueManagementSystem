@@ -20,3 +20,57 @@ public class QueueManagementSystem {
             System.out.print("Choose an option: ");
 
             choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    generateTicket();
+                    break;
+                case 2:
+                    callNextTicket();
+                    break;
+                case 3:
+                    viewStatus();
+                    break;
+                case 4:
+                    resetQueue();
+                    break;
+                case 5:
+                    System.out.println("Exiting. Thank you!");
+                    break;
+                default:
+                    System.out.println("Invalid option.");
+            }
+
+        } while (choice != 5);
+
+        scanner.close();
+    }
+
+    private static void generateTicket() {
+        String ticket = "T" + ticketCounter++;
+        ticketQueue.add(ticket);
+        System.out.println("Ticket Generated: " + ticket);
+    }
+
+    private static void callNextTicket() {
+        if (ticketQueue.isEmpty()) {
+            System.out.println("No tickets in the queue.");
+        } else {
+            String nextTicket = ticketQueue.poll();
+            System.out.println("Now serving: " + nextTicket);
+        }
+    }
+
+    private static void viewStatus() {
+        System.out.println("Tickets in queue: " + ticketQueue.size());
+        if (!ticketQueue.isEmpty()) {
+            System.out.println("Next ticket: " + ticketQueue.peek());
+        }
+    }
+
+    private static void resetQueue() {
+        ticketQueue.clear();
+        ticketCounter = 1;
+        System.out.println("Queue has been reset.");
+    }
+}
